@@ -11,4 +11,3 @@ def index(request):
             }
     return HttpResponse(template.render({'pics': image_list }, request))
 
-# Create your views here
