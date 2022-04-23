@@ -3,6 +3,11 @@
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.css"
     />
+<style>
+.buy_button {
+    border: blue solid 2px;
+    }
+</style>
 </head>
 <body>
 <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
@@ -12,12 +17,8 @@
 <script type="text/javascript">
 
     function showCard(url) {
-            console.log("This isi workingf.")
             FOTOMOTO.API.showWindow(FOTOMOTO.API.PRINT, url)
         };
-    function showToolbar(url) {
-            toolbarID = FOTOMOTO.API.showToolbar('toolbar_div', url)
-        }
 
 </script>
 
@@ -27,19 +28,16 @@
         {% if i.for_sale %}
     <a href={{ i.url  }} data-fancybox="gallery" data-caption="here is the captions {{ i.id }}" style="border: dashed blue 5px;">
 
-       <!--  <div style="background-image: url({{ i.url }}); height: 135; width: 240;"></div> -->
-       <img src="{{ i.url }}" style="height: 135; width: 240;" />
+    <div style="background-image: url({{ i.url }}); background-size: cover;  height: 135; width: 240;"></div>
 
     </a>
-    <button onclick="showCard('{{ i.url }}')">Buy this photo</button>
+    <button class='buy_button' onclick="showCard('{{ i.url }}')">Buy this photo</button>
         {% else %}
     <a class="" href={{ i.url  }} 
        data-fancybox="gallery"
        data-caption="here is the captions {{ i.id }}"
     >
-    <img src="{{ i.url }}" style="height: 135; width: 240;"/>
-
-    <!-- <div style="background-image: url({{ i.url }}); height: 135; width: 240;"></div> -->
+    <div style="background-image: url({{ i.url }}); background-size: cover;  height: 135; width: 240;"></div>
     </a>
         {% endif %}
     {% endfor %}
