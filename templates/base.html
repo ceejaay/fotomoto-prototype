@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+    {# Make modifiable head elements #}
+    <head>
+        <title>{% block title %}Home {% endblock title %} | CRM Easy</title>
+        {% block head_meta %}
+        {% endblock head_meta %}
+    </head>
+<body>
+{% block body %}
+{% block scripts %}
+{% endblock scripts %}
+
+
+{% endblock body %}
+</body>
