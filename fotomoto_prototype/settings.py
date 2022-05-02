@@ -89,6 +89,7 @@ print("DEV mode", DEVELOPMENT_MODE)
 #         'NAME': BASE_DIR / 'db.sqlite3',
 #     }
 # }
+print('database url', os.getenv("DATABASE_URL"))
 
 DATABASES = {
         'default': {
@@ -96,7 +97,7 @@ DATABASES = {
             'NAME': 'fotomoto',
             'USER': "cjem",
             'PASSWORD': "hellolego",
-            'HOST': 'localhost',
+            'HOST': os.getenv("DATABASE_URL"),
             'PORT': '5432',
             }
 
