@@ -97,8 +97,8 @@ DATABASES = {
             'NAME': 'fotomoto',
             'USER': "cjem",
             'PASSWORD': "hellolego",
-            'HOST': os.getenv("DATABASE_URL"),
-            'PORT': '5432',
+            # 'HOST': os.getenv("DATABASE_URL"),
+            # 'PORT': '5432',
             }
 
         }
