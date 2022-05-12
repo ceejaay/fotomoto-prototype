@@ -17,6 +17,7 @@ import os
 import sys
 import dj_database_url
 
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -28,8 +29,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = os.getenv("DJANGO_SECRET_KEY", get_random_secret_key())
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.getenv("DEBUG", "False") == "True"
-print("this is debug status ", DEBUG)
+DEBUG=False
+# DEBUG = os.getenv("DEBUG", "False") == "True"
 ALLOWED_HOSTS = ['localhost', ".herokuapp.com"]
 CSRF_TRUSTED_ORIGINS = ["https://*.herokuapp.com"]
 APPEND_SLASH=False
@@ -78,29 +79,31 @@ TEMPLATES = [
 WSGI_APPLICATION = 'fotomoto_prototype.wsgi.application'
 
 DEVELOPMENT_MODE = os.getenv("DEVELOPMENT_MODE", "False") == "True"
-print("DEV mode", DEVELOPMENT_MODE)
 
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
-
 DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.postgresql',
-            'NAME': 'fotomoto',
-            'USER': "cjem",
-            'PASSWORD': "hellolego",
-            'HOST': 'localhost',
-            'PORT': '5432',
-            }
-        }
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
+}
 
+
+# DATABASES = {
+#         'default': {
+#             'ENGINE': 'django.db.backends.postgresql',
+#             'NAME': 'fotomoto',
+#             'USER': "cjem",
+#             'PASSWORD': "hellolego",
+#             'HOST': os.getenv("DATABASE_URL"),
+#             'PORT': '5432',
+#             }
+#         }
+# print("Thi sis the database host >>>>>>>>>>>>", DATABASES['default']['HOST'])
+
+# DATABASES['default'] = dj_database_url.config(conn_max_age=600, ssl_require=True)
 # if DEVELOPMENT_MODE is True:
 #     DATABASES = {
 #     'default': {
