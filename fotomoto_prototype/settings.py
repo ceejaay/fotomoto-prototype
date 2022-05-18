@@ -94,8 +94,8 @@ DEVELOPMENT_MODE = os.getenv("DEVELOPMENT_MODE", "False") == "True"
 DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql',
-            'NAME': 'fotomoto',
-            'USER': "cjem",
+            # 'NAME': 'fotomoto',
+            # 'USER': "cjem",
             'PASSWORD': "hellolego",
             'HOST': os.getenv("DATABASE_URL"),
             'PORT': '5432',
@@ -103,7 +103,7 @@ DATABASES = {
         }
 # print("Thi sis the database host >>>>>>>>>>>>", DATABASES['default']['HOST'])
 
-DATABASES['default'] = dj_database_url.config(conn_max_age=600, ssl_require=True)
+DATABASES['default'] = dj_database_url.config(conn_max_age=600, ssl_require=False)
 DATABASES['default']['NAME'] = 'fotomoto'
 # if DEVELOPMENT_MODE is True:
 #     DATABASES = {
