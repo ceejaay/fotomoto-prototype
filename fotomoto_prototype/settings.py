@@ -103,7 +103,7 @@ DATABASES = {
         }
 # print("Thi sis the database host >>>>>>>>>>>>", DATABASES['default']['HOST'])
 
-DATABASES['default'] = dj_database_url.config(conn_max_age=600, ssl_require=False)
+DATABASES['default'] = dj_database_url.config(conn_max_age=600, ssl_require=True)
 # DATABASES['default']['NAME'] = 'fotomoto'
 # if DEVELOPMENT_MODE is True:
 #     DATABASES = {
