@@ -19,23 +19,33 @@
 <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css"></script>
 
 <script type="text/javascript">
-    $( '.buy_button' ).click( console.log("werk") )
 
-    function changeClass() {
-        $("img").addClass("nofotomoto")
-
+    function fotomoto_buy(printURL) {
+            let images = [];
+            images.push({
+                    img: printURL,
+                    original_image: printURL,
+                    collection: "891cca4c39226c3b922da3f63a9c9c672ae3c711"
+                })
+            $.post(checkinURL, {store_key: storeID, page_url: 'http://localhost:8000/fotomoto', imgs: images},
+                    (data)=> {console.log("post error", data, checkinURL)}, 'json' )
+        }
+    function checkIn(url) {
+            FOTOMOTO.API.checkinImage(url, (i)=> {console.log(i)}, "891cca4c39226c3b922da3f63a9c9c672ae3c711")
         }
 
-    function showCard(url) {
-            console.log('werks')
-            FOTOMOTO.API.showWindow(FOTOMOTO.API.PRINT, url)
-        };
 
+    function hideButton() {
+       console.log("wersk")
+        let thing = $.fancybox.defaults.btnTpl.fm = undefined
+        console.log("This worked")
+
+        }
 </script>
 
 
 <script type="text/javascript"
-    src="//widget.fotomoto.com/stores/script/f5c3031c4d1e8f12edeb46a96cf6a7572e5ca4dc.js"></script>
+    src="//widget.fotomoto.com/stores/script/f5c3031c4d1e8f12edeb46a96cf6a7572e5ca4dc.js?api=true"></script>
 <noscript>If Javascript is disabled in your browser, to place orders please visit the page where I <a href=' https://my.fotomoto.com/store/f5c3031c4d1e8f12edeb46a96cf6a7572e5ca4dc'>sell my photos</a>, powered by <a href='https://my.fotomoto.com'>Fotomoto</a>.</noscript>
 
 
@@ -45,7 +55,8 @@
 
 {% if pics %}
     {% for i in pics %}
-        {% if i.for_sale %}
+    {% if i.for_sale  %}
+
     <a href="{{ i.url  }}"
        data-fancybox="gallery"
        data-caption="here is the captions '{{ i.id }}'"
@@ -56,27 +67,26 @@
                 height: 135px;
                 width: 240px;
                 margin: 10px;
-                border: 2px yellow solid;
+                border: solid green 6px;
+                "></div>
+    </a>
+    {% else %}
+    <a href="{{ i.url  }}"
+       data-fancybox="gallery"
+       data-caption="here is the captions '{{ i.id }}'"
+     >
+
+        <div style="background-image: url({{ i.url }});
+                background-size: cover;
+                height: 135px;
+                width: 240px;
+                margin: 10px;
+               "onclick='hideButton()'"
                 "></div>
     </a>
 
-    {% else %}
+    {% endif  %}
 
-    <a class="" href="{{ i.url  }}"
-       data-fancybox="gallery"
-       data-caption="here is the captions {{ i.id }}"
-    >
-
-    <div style="background-image: url({{ i.url }});
-        background-size: cover;
-        margin: 10px;
-        height: 135px;
-        width: 240px;">
-    </div>
-
-    </a>
-
-    {% endif %}
     {% endfor %}
 {% else %}
 <p>No images !!!!</p>
