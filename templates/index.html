@@ -1,4 +1,5 @@
 {% extends 'base.html'%}
+{% load static %}
 {% block head %}{% endblock head %}
 <title>{% block title  %}Fotomoto {% endblock title %}<title>
 
@@ -18,37 +19,18 @@
 <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css"></script>
 
-<script type="text/javascript">
-
-    function fotomoto_buy(printURL) {
-            let images = [];
-            images.push({
-                    img: printURL,
-                    original_image: printURL,
-                    collection: "891cca4c39226c3b922da3f63a9c9c672ae3c711"
-                })
-            $.post(checkinURL, {store_key: storeID, page_url: 'http://localhost:8000/fotomoto', imgs: images},
-                    (data)=> {console.log("post error", data, checkinURL)}, 'json' )
-        }
-    function checkIn(url) {
-            FOTOMOTO.API.checkinImage(url, (i)=> {console.log(i)}, "891cca4c39226c3b922da3f63a9c9c672ae3c711")
-        }
-
-
-    function hideButton() {
-       console.log("wersk")
-        let thing = $.fancybox.defaults.btnTpl.fm = undefined
-        console.log("This worked")
-
-        }
-</script>
-
-
-<script type="text/javascript"
-    src="//widget.fotomoto.com/stores/script/f5c3031c4d1e8f12edeb46a96cf6a7572e5ca4dc.js?api=true"></script>
+<script type="text/javascript" src="//widget.fotomoto.com/stores/script/f5c3031c4d1e8f12edeb46a96cf6a7572e5ca4dc.js?api=true"></script>
 <noscript>If Javascript is disabled in your browser, to place orders please visit the page where I <a href=' https://my.fotomoto.com/store/f5c3031c4d1e8f12edeb46a96cf6a7572e5ca4dc'>sell my photos</a>, powered by <a href='https://my.fotomoto.com'>Fotomoto</a>.</noscript>
 
+<script type="text/javascript">
+    const collectionID = "891cca4c39226c3b922da3f63a9c9c672ae3c711"
+    const storeID = "f5c3031c4d1e8f12edeb46a96cf6a7572e5ca4dc"
+    function checkIn(url) {
+            console.log(url)
+            FOTOMOTO.API.checkinImage(url, (i) => {console.log(i)}, collectionID, storeID )
+        }
 
+</script>
 {% endblock scripts %}
 
 <div class="container" style="max-width: 95%; height: 100%; display: flex; flex-flow: column wrap; align-content: flex-start; border: 1px green solid;">
@@ -56,6 +38,9 @@
 {% if pics %}
     {% for i in pics %}
     {% if i.for_sale  %}
+        <script type="text/javascript">
+            var a = '{{ i.url  }}'
+        </script>
 
     <a href="{{ i.url  }}"
        data-fancybox="gallery"
@@ -68,7 +53,9 @@
                 width: 240px;
                 margin: 10px;
                 border: solid green 6px;
-                "></div>
+                "
+             onclick="checkIn('{{ i.url }}')"
+                ></div>
     </a>
     {% else %}
     <a href="{{ i.url  }}"
@@ -81,7 +68,6 @@
                 height: 135px;
                 width: 240px;
                 margin: 10px;
-               "onclick='hideButton()'"
                 "></div>
     </a>
 
@@ -92,5 +78,6 @@
 <p>No images !!!!</p>
 {% endif %}
 </div>
+<img src="{% static '/fotomoto/123.png' %}" alt="my image">
 {% endblock body %}
 </body>
